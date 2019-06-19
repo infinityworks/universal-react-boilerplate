@@ -1,0 +1,9 @@
+node_modules
+dist
+logs/*.log
+coverage
+.cache
+config/local.js
+report.html
+.serverless
+!.vscode/*.code-snippets
