@@ -1,0 +1,44 @@
+/* custom styles used in storybook */
+
+.markdown-body{
+  margin: 0 auto;
+  max-width: 1024px;
+  padding: 20px;
+}
+
+body {
+  padding: 50px !important;
+}
+
+html > body {
+  padding: 0 !important;
+}
+
+.markdown-body {
+  line-height: 1.6;
+  font-size: 16px;
+  padding: 50px 0;
+}
+.markdown-body ul {
+  padding: 0 0 20px;
+}
+.markdown-body h1 {
+  padding-bottom: 30px;
+  
+}
+.markdown-body h2 {
+  padding-bottom: 25px;
+  
+}
+.markdown-body h3 {
+  padding-bottom: 20px;
+  
+}
+.markdown-body h4 {
+  padding-bottom: 10px;
+  
+}
+.markdown-body p {    
+  padding-bottom: 20px;
+  text-align: justify;
+}
