@@ -2,7 +2,6 @@ import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import { Provider } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { injectGlobal, ThemeProvider, ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import serialize from 'serialize-javascript';
@@ -21,13 +20,13 @@ const log = getLog('/server/routes/renderPageRoute');
 const createApp = (store, url, routerContext, asyncContext, sheet) => (
   <AsyncComponentProvider asyncContext={asyncContext}>
     <StyleSheetManager sheet={sheet.instance}>
-      <Provider store={store}>
+
         <ThemeProvider theme={currentTheme}>
           <StaticRouter location={url} context={routerContext}>
             {renderRoutes(routes)}
           </StaticRouter>
         </ThemeProvider>
-      </Provider>
+
     </StyleSheetManager>
   </AsyncComponentProvider>
 );
@@ -48,10 +47,6 @@ const renderHTML = ({ content, styles, helmet, enableJS, clientData, asyncState,
     <script>
       ${clientData ? `window.__INIT_DATA_FROM_SERVER_RENDER__ = ${serialize(clientData)};` : ''}
       ${asyncState ? `window.ASYNC_COMPONENTS_STATE = ${serialize(asyncState)};` : ''}
-      ${intercomSettings ? `window.intercomSettings = ${serialize(intercomSettings)};` : ''}
-    </script>
-    <script>
-    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/' ;var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
     </script>
     ${enableJS ? '<script src="/bundles/index.js"></script>' : ''}
   </body>

@@ -6,13 +6,11 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import path from 'path';
-import helmet from 'helmet';
-import createStore from '../client/redux/store';
+import helmet from 'helmet'
 import renderPageRoute from './routes/renderPageRoute';
 import actionLogger from './middlewares/logging';
 import responseLogger from './logging/response-logger';
 import errorPage from './middlewares/error-page';
-import * as redux from './middlewares/redux';
 import sendAmplitudeEvent from './services/analytics/logEvent';
 import routes from './routes';
 import { STORYBOOK, COOKIE_SECRET } from '../config/server';
@@ -46,14 +44,6 @@ app.use('/bundles', express.static(path.join(__dirname, '../../dist/bundles')));
 if (STORYBOOK) {
   app.use('/storybook', express.static(path.join(__dirname, '../../dist/storybook')));
 }
-
-app.use(actionLogger);
-
-app.use(redux.loadSession(createStore, sendAmplitudeEvent));
-
-app.use(routes);
-
-app.use(redux.handleAction);
 
 app.get('*', renderPageRoute);
 

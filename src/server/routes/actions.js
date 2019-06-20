@@ -1,14 +1,9 @@
 import { Router } from 'express';
-import { combine } from '../../client/routes/conditional';
 
 const getIsAllowed = route => {
   // Old routing.
   if (route.component) return route.component.isValid;
-  // New routing.
-  if (!Array.isArray(route.isAllowed)) {
-    return route.isAllowed;
-  }
-  return combine(...route.isAllowed);
+  return true;
 };
 
 export const handler = route => (req, res, next) => {
